@@ -1,0 +1,60 @@
+{
+  "_source": false,
+  "from": 0,
+  "query": {
+    "bool": {
+      "minimum_should_match": "1",
+      "must": {
+        "term": {
+          "is_new": 1
+        }
+      },
+      "should": [
+        {
+          "match_phrase": {
+            "store_name": {
+              "_name": "storeNameMatchPhreaseQuery",
+              "boost": 2,
+              "query": "手机"
+            }
+          }
+        },
+        {
+          "match": {
+            "store_name": {
+              "_name": "storeNameMatchQuery",
+              "boost": 1,
+              "query": "手机"
+            }
+          }
+        },
+        {
+          "match_phrase": {
+            "desc": {
+              "_name": "descMatchQuery",
+              "boost": 0.5,
+              "query": "手机"
+            }
+          }
+        },
+        {
+          "match_phrase": {
+            "store_name.pinyin": {
+              "_name": "storeNamePinyinMatchPhreaseQuery",
+              "boost": 0.7,
+              "query": "手机"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "sort": [
+    {
+      "price": {
+        "order": "desc"
+      }
+    }
+  ],
+  "size": 10
+}
